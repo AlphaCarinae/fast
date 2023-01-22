@@ -1,14 +1,26 @@
 import strawberry
 from fastapi import FastAPI
 from strawberry.asgi import GraphQL
+from enum import Enum
+
+@strawberry.enum
+class State(Enum):
+    NSW = "NSW"
+    QLD = "QLD"
+    ACT = "ACT"
+    WA = "WA"
+    VIC = "VIC"
+    TAS = "TAS"
+    SA = "SA"
+    NT = "NT"
 
 @strawberry.type
 class Address:
     number: str
     street: str
     city: int
-    state: str
-
+    state: State
+ 
 @strawberry.type
 class Person:
     name: str
@@ -20,7 +32,7 @@ mock_data = Person(name="Soheil",
         address=Address(number=5,
             street="100 King Street",
             city="NewTown",
-            state="NSW")
+            state=State.NSW)
 )
 
 @strawberry.type
